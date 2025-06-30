@@ -325,7 +325,7 @@ Now provide exactly **three** hints to help a student solve the problem, **witho
         problemTitle.textContent = titleText;
         problemText.textContent = "⏳ Generating problem...";
         clearEditor();
-        
+
         // Transition from topic selection to problem page
         selectionPage.style.display = "none";
         problemPage.style.display = "block";
@@ -340,6 +340,7 @@ Now provide exactly **three** hints to help a student solve the problem, **witho
         await displayProblem(thisGenerationId);
     });
 
+    // Generates new question for same topic and difficulty level
     newQuestionBtn.addEventListener("click", function () {
         if (!codeWasSubmitted) {
             lastScore = null;
@@ -373,6 +374,7 @@ Now provide exactly **three** hints to help a student solve the problem, **witho
         displayProblem(thisGenerationId);
     });
 
+    // Back Button takes you to main page for topic and difficulty selection
     backBtn.addEventListener("click", function () {
         document.getElementById("feedbackSection").style.display = "none";
         document.getElementById("toggleFeedbackBtn").style.display = "none";
@@ -386,12 +388,14 @@ Now provide exactly **three** hints to help a student solve the problem, **witho
         selectionPage.style.display = "block";
     });
 
+    // Toggle the visibility of the hint section when the "Hint" button is clicked
     hintBtn.addEventListener("click", function () {
         const isHidden = hintSection.style.display === "none" || hintSection.style.display === "";
         hintSection.style.display = isHidden ? "block" : "none";
         hintBtn.textContent = isHidden ? "Hide Hint" : "Show Hint";
     });
 
+    // Toggle visibility of the feedback section when "Show/Hide Feedback" is clicked
     document.getElementById("toggleFeedbackBtn").addEventListener("click", function () {
         const feedbackBox = document.getElementById("feedbackSection");
         const isVisible = feedbackBox.style.display === "block";
@@ -407,6 +411,7 @@ Now provide exactly **three** hints to help a student solve the problem, **witho
         }
     });
 
+    // Checks if block of text written in code editor is actually a code or not
     function isProbablyCode(text) {
         const lines = text.trim().split("\n").filter(l => l.trim().length > 0);
         if (lines.length < 2) return false;
@@ -418,30 +423,36 @@ Now provide exactly **three** hints to help a student solve the problem, **witho
         for (let line of lines) {
             const trimmed = line.trim();
 
+            // Count lines that look like comments (single-line or doc-style)
             if (/^(\s*)?(#|\/\/|\/\*|\*|\*)/.test(trimmed)) {
                 commentOnlyCount++;
             }
 
+            // Count lines that appear to be natural language (e.g., English prose)
             if (/[.?!]$/.test(trimmed) && /\b(the|this|that|should|after|before|each|begin|step)\b/i.test(trimmed)) {
                 naturalLanguageCount++;
             }
 
+            // Count lines that contain code-like tokens or syntax
             if (/[{();=}]|function|class|def|let|const|var|return|<|>/.test(trimmed)) {
                 codeLikeCount++;
             }
         }
 
+        // Compute ratios of code, comments, and natural text
         const codeRatio = codeLikeCount / lines.length;
         const commentRatio = commentOnlyCount / lines.length;
         const naturalTextRatio = naturalLanguageCount / lines.length;
 
+        // Heuristic rule: code should dominate, but not be overwhelmed by comments or prose
         return (
-            codeRatio > 0.3 &&
-            commentRatio < 0.6 &&
-            naturalTextRatio < 0.5
+            codeRatio > 0.3 && // At least 30% of lines must look like code
+            commentRatio < 0.6 && // Less than 60% comments
+            naturalTextRatio < 0.5 // Less than 50% natural language
         );
     }
 
+    // Submits code for evaluation / analysis  and feedback generation
     submitCodeBtn.addEventListener("click", async function () {
         const currentCode = editor.getValue();
 
@@ -473,12 +484,14 @@ Now provide exactly **three** hints to help a student solve the problem, **witho
         const hintBtn = document.getElementById("hintBtn");
         const toggleFeedbackBtn = document.getElementById("toggleFeedbackBtn");
 
+        // Show feedback section with a loading message
         feedbackBox.style.display = "block";
         feedbackContent.innerHTML = `<em>🕐 Evaluating code...</em>`;
         toggleFeedbackBtn.style.display = "none";
 
         const problem = problemText.textContent;
 
+        // prompt to send code and problem to LLM for evaluation
         const evaluationPrompt = `
         You are an expert AI tutor evaluating a student's code submission.
 
@@ -527,6 +540,7 @@ Now provide exactly **three** hints to help a student solve the problem, **witho
         };
 
         try {
+            // POST Call the LLM server to evaluate the submission
             const resp = await fetch("http://localhost:8000/generate", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -539,6 +553,7 @@ Now provide exactly **three** hints to help a student solve the problem, **witho
             const json = JSON.parse(raw);
             let feedback = json.feedback ?? json.generated_text ?? raw;
 
+            // Extract feedback block using delimiters
             const start = feedback.lastIndexOf("=== BEGIN FEEDBACK ===");
             const end = feedback.lastIndexOf("=== END FEEDBACK ===");
 
@@ -551,6 +566,7 @@ Now provide exactly **three** hints to help a student solve the problem, **witho
 
             console.log("✅ Extracted Feedback:\n", feedback);
 
+            // Parse feedback into sections
             feedback = feedback.replace(/\\n/g, "\n");
             const lines = feedback.split("\n").map(l => l.trim()).filter(Boolean);
 
@@ -592,6 +608,7 @@ Now provide exactly **three** hints to help a student solve the problem, **witho
                 }
             }
 
+            // Build HTML sections for display
             const logicHTML = logic ? `<h4>✅ Logic & Correctness:</h4><p>${logic.trim()}</p>` : "";
             const improvementsHTML = improvements.length
             ? `<h4>⚠️ Suggestions for Improvement:</h4><ul>${improvements.map(i => `<li>${i}</li>`).join("")}</ul>` : "";
@@ -599,12 +616,14 @@ Now provide exactly **three** hints to help a student solve the problem, **witho
             const scoreHTML = score ? `<h4>🎯 Code Score:</h4><p><strong>${score}/10</strong></p>` : "";
 
             const scoreBadge = document.getElementById("scoreBadge");
+
+            // style score badge
             if (score && scoreBadge) {
                 const numericScore = parseInt(score);
                 let color = "#444";
-                if (numericScore >= 8) color = "#2e7d32";        
-                else if (numericScore >= 5) color = "#f9a825";  
-                else color = "#d32f2f";                          
+                if (numericScore >= 8) color = "#2e7d32";         // Green for high score
+                else if (numericScore >= 5) color = "#f9a825";    // Orange for medium score
+                else color = "#d32f2f";                           // Red for low score 
 
                 scoreBadge.style.cssText = `
                 background-color: #fff3cd;
@@ -632,6 +651,7 @@ Now provide exactly **three** hints to help a student solve the problem, **witho
                 scoreBadge.innerHTML = "";         
             }
 
+            // Inject the final feedback into the UI
             feedbackContent.innerHTML = `
             <div class="feedback-block">
                 ${logicHTML}
@@ -643,6 +663,7 @@ Now provide exactly **three** hints to help a student solve the problem, **witho
             toggleFeedbackBtn.style.display = "inline-block";
             toggleFeedbackBtn.textContent = "Hide Feedback";
 
+            // Labels Hint Button
             if (hintBtn && hintBox.style.display === "block") {
                 hintBtn.textContent = "Hide Hint";
             } else if (hintBtn) {
@@ -659,16 +680,18 @@ Now provide exactly **three** hints to help a student solve the problem, **witho
         }
     });
 
+    // Deselect active topic tiles when clicking outside the selection area
     document.addEventListener("click", function (event) {
         setTimeout(() => {
             const clickedInsideTile = event.target.closest(".topic-box");
             const clickedGenerate = event.target.closest("#generateBtn");
             const clickedDropdown = event.target.closest("#difficultySelect");
 
+            // If the click was outside all relevant UI elements and the selection page is visible, deselect all topic boxes
             if (!clickedInsideTile && !clickedGenerate && !clickedDropdown && selectionPage.style.display !== "none") {
                 document.querySelectorAll(".topic-box").forEach((b) => b.classList.remove("active"));
                 selectedTopic = "";
             }
-        }, 0);
+        }, 0); // setTimeout to ensure event.target is stable after any UI updates
     });
 });
