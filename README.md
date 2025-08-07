@@ -10,7 +10,7 @@ These capabilities are powered by the locally hosted DeepSeek-Coder-V2-Lite-Inst
 
 1. [Features](#-features)
 2. [Project Structure](#-project-structure)
-3. [HPC Setup Instructions](#️-hpc-setup-instructions)
+3. [Backend Usage & HPC Setup](#️-backend-usage--hpc-setup)
 4. [Frontend Instructions](#-frontend-instructions)
 5. [Requirements](#-requirements)
 6. [Model Download](#-deepseek-model-download)
@@ -54,7 +54,9 @@ CodeSensei/
 
 ---
 
-## ⚙️ HPC Setup Instructions
+## ⚙️ Backend Usage & HPC Setup
+
+To use CodeSensei, follow the steps below to launch the backend API server on your assigned HPC node and make it accessible to the web frontend. This backend powers all intelligent features such as problem generation, hinting, and code evaluation.
 
 1. **SSH into your HPC cluster:**
    ```bash
@@ -84,6 +86,8 @@ CodeSensei/
 ---
 
 ## 🌐 Frontend Instructions
+
+Once the backend is running, open the web frontend to interact with CodeSensei and test its features.
 
 1. Open the `Frontend/index.html` in your browser.
 2. You can use VS Code Live Server or any static hosting service.
