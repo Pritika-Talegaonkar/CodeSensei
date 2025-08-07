@@ -1,12 +1,15 @@
 # CodeSensei
 
-CodeSensei is an AI-powered adaptive tutorial system that dynamically adjusts the difficulty of practice problems based on user performance. It generates tailored hints, performs semantic evaluation of user-submitted code, and supports scaffolded learning of Data Structures and Algorithms (DSA) concepts. The system is language-independent and, thanks to its REST API nature, holds strong potential for future integration with Learning Management Systems (LMS).
+CodeSensei is an AI-powered adaptive tutorial system that dynamically adjusts the difficulty of practice problems based on user performance. It also generates new problems on the fly based on the user's selected topic and difficulty level. The system provides tailored hints, performs semantic evaluation of user-submitted code, and supports scaffolded learning of Data Structures and Algorithms (DSA) concepts.
+
+These capabilities are powered by the locally hosted DeepSeek-Coder-V2-Lite-Instruct model running on HPC infrastructure. CodeSensei is language-independent and, thanks to its REST API architecture, is well-suited for future integration with Learning Management Systems (LMS).
 
 ---
 
 ## 🚀 Features
 
 - 🎯 Adaptive difficulty based on user performance
+- 🧩 Dynamic generation of practice problems by topic and difficulty
 - 💡 Contextual, tailored hints
 - 🧠 Semantic code evaluation for scaffolded learning
 - 🌐 Web-based frontend for accessibility
