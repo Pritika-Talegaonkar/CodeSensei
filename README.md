@@ -49,6 +49,7 @@ CodeSensei/
 │
 ├── README.md                        # Main documentation and setup instructions
 └── Declaration.md                   # Author certification for sole authorship
+└── requirements.txt                 # Python dependencies
 
 ```
 
