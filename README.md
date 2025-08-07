@@ -45,11 +45,11 @@ CodeSensei/
 ├── Frontend/
 │   ├── index.html                   # Main web interface
 │   ├── script.js                    # Frontend logic and prompt handling for problems, hints, and feedback
-│   └── style.css                    # Stylesheet for the interface
+│   └── style.css                    # Stylesheet for the interface layout and design
 │
 ├── README.md                        # Main documentation and setup instructions
-└── Declaration.md                   # Author certification for sole authorship
-└── requirements.txt                 # Python dependencies
+├── Declaration.md                   # Author certification for sole authorship
+└── requirements.txt                 # Python dependencies required to run the backend
 
 ```
 
