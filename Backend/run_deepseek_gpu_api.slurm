@@ -1,4 +1,5 @@
 #!/bin/bash
+# SLURM job settings: name, output files, GPU/CPU, memory resources, and time limit
 #SBATCH --job-name=deepseek-gpu-api
 #SBATCH --output=deepseek_gpu_out.txt
 #SBATCH --error=deepseek_gpu_err.txt
@@ -11,10 +12,8 @@
 # Activate virtualenv
 source ~/hf_env/bin/activate
 
-# Navigate to your model folder
+# Navigate to model folder
 cd /scratch/users/k24002817/
 
-# Start the FastAPI server with Uvicorn
-#python -m uvicorn deepseek_api_server:app --host 0.0.0.0 --port 8000 --reload
-
+# Run FastAPI server with Uvicorn
 python -m uvicorn deepseek:app --host 0.0.0.0 --port 8000 --reload
