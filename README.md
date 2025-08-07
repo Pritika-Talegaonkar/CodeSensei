@@ -103,7 +103,7 @@ Once the backend is running, open the web frontend to interact with CodeSensei a
 ## 📦 Requirements
 
 - Python 3.x
-- `transformers`, `torch`, `accelerate`, `datasets` and other dependencies (within `hf_env`)
+- `transformers`, `torch`, `fastapi`, `uvicorn`, `pydantic` and other dependencies (within `hf_env`)
 - SLURM scheduler (for HPC job submission)
 - Web browser for frontend access
 
