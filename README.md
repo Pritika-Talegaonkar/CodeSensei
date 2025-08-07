@@ -6,6 +6,20 @@ These capabilities are powered by the locally hosted DeepSeek-Coder-V2-Lite-Inst
 
 ---
 
+## 🧭 Table of Contents
+
+1. [Features](#-features)
+2. [Project Structure](#-project-structure)
+3. [HPC Setup Instructions](#️-hpc-setup-instructions)
+4. [Frontend Instructions](#-frontend-instructions)
+5. [Requirements](#-requirements)
+6. [Model Download](#-deepseek-model-download)
+7. [License](#-license)
+8. [Acknowledgments](#-acknowledgments)
+9. [Certification](#-certification)
+
+---
+
 ## 🚀 Features
 
 - 🎯 Adaptive difficulty based on user performance
@@ -111,3 +125,8 @@ This project is intended for **academic and research use only**.
 - [DeepSeek Coder](https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct)
 - HPC resources provided by CREATE, King’s College London
 
+---
+
+## ✅ Certification
+
+**"I verify that I am the sole author of the programs contained in this archive, except where explicitly stated to the contrary."**
