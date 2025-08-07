@@ -129,7 +129,7 @@ This project is intended for **academic and research use only**.
 
 ## ✅ Certification
 
-**"I verify that I am the sole author of the programs contained in this archive, except where explicitly stated to the contrary."**
+**I verify that I am the sole author of the programs contained in this archive, except where explicitly stated to the contrary.**
 
 /s/ Pritika Shrikant Talegaonkar. 
 
