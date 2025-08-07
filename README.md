@@ -42,10 +42,14 @@ CodeSensei/
 │   ├── deepseek.py                  # Backend API server using DeepSeek model
 │   └── run_deepseek_gpu_api.slurm  # SLURM job script to request a GPU node
 │
-└── Frontend/
-    ├── index.html                  # Main web interface
-    ├── script.js                   # Frontend logic for API calls
-    └── style.css                   # Stylesheet for the interface
+├── Frontend/
+│   ├── index.html                   # Main web interface
+│   ├── script.js                    # Frontend logic and prompt handling for problems, hints, and feedback
+│   └── style.css                    # Stylesheet for the interface
+│
+├── README.md                        # Main documentation and setup instructions
+└── Declaration.md                   # Author certification for sole authorship
+
 ```
 
 ---
